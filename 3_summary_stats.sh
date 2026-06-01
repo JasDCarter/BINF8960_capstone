@@ -23,10 +23,22 @@ do
     module load SAMtools/1.23.1-GCC-13.3.0
     aligned_reads=$(samtools view -c -F 0x4 results/bam/${EACH}.sorted.bam) #view each BAM file -> count the rows + ignore rows flagged with 4 (-F 0x4), which means unmapped
 
-#(5) Count Variant Sites
-    variant_sites=$(grep -v '^#' results/vcf/variants_filtered.vcf | wc -l)
-    #grab all lines that DON'T start with # (headers) -> count the number of lines
+#(5) Count Variants
+    if [[ "$EACH" == *SRR2584863* ]]; then
+        variant_sites=$(grep -v '^#' results/vcf/variants_filtered.vcf | cut -f 10 | grep -c '^1:')
+                       #grab everything that does NOT start with # -> look at only column 10 --> grab count of everthing that starts with "1:" (1 = variant; 0 = reference match)
 
-# add statistics to the tidy output file
+
+    elif [[ "$EACH" == *SRR2584866* ]]; then
+        variant_sites=$(grep -v '^#' results/vcf/variants_filtered.vcf | cut -f 11 | grep -c '^1:')
+
+
+    elif [[ "$EACH" == *SRR2589044* ]]; then
+        variant_sites=$(grep -v '^#' results/vcf/variants_filtered.vcf | cut -f 12 | grep -c '^1:')
+
+    fi
+
+
+#(6) Add statistics to the tidy output file
     echo "${EACH},${raw_reads},${trimmed_reads},${aligned_reads},${variant_sites}" >> $OUTPUT_FILE
 done
