@@ -5,11 +5,11 @@
 #(1) Download reference genome
 # mkdir data/ref_genome
 # curl -L -o data/ref_genome/ecoli_rel606.fasta.gz ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/017/985/GCA_000017985.1_ASM1798v1/GCA_000017985.1_ASM1798v1_genomic.fna.gz
-# gunzip /scratch/jdc83001/ecoli_variation/data/ref_genome/ecoli_rel606.fasta.gz
+# gunzip /scratch/jdc83001/BINF7960_capstone/data/ref_genome/ecoli_rel606.fasta.gz
 
 #(2) Index the reference genome
 module load BWA/0.7.18-GCCcore-13.3.0
-bwa index /scratch/jdc83001/ecoli_variation/data/ref_genome/ecoli_rel606.fasta
+bwa index /scratch/jdc83001/BINF7960_capstone/data/ref_genome/ecoli_rel606.fasta
 
 #(3) Make the output directories
 mkdir results/sam results/bam results/bcf results/vcf
@@ -24,7 +24,7 @@ sample=$(basename $fwd _1.trim.fastq.gz)
 echo "Processing sample $sample"
 
 # Align
-    bwa mem /scratch/jdc83001/ecoli_variation/data/ref_genome/ecoli_rel606.fasta \
+    bwa mem /scratch/jdc83001/BINF7960_capstone/data/ref_genome/ecoli_rel606.fasta \
          "$fwd" \
          data/trimmed_fastq/${sample}_2.trim.fastq.gz \
          > results/sam/${sample}.sam
