@@ -12,11 +12,11 @@ do
     echo "Calculating statistics for sample $EACH"
 
 #(2) Count Raw Reads 
-    raw_lines=$(zcat data/untrimmed_fastq/${EACH}_1.fastq.gz | wc -l)
+    raw_lines=$(zcat data/untrimmed_fastq/${EACH}_*.fastq.gz | wc -l)
     raw_reads=$((raw_lines / 4)) #because there are 4 lines per 1 read
 
 #(3) Count Trimmed Reads
-    trimmed_lines=$(zcat data/trimmed_fastq/${EACH}_1.trim.fastq.gz | wc -l)
+    trimmed_lines=$(zcat data/trimmed_fastq/${EACH}_*.trim.fastq.gz | wc -l)
     trimmed_reads=$((trimmed_lines / 4))
 
 #(4) Count Aligned Reads
