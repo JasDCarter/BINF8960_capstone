@@ -20,6 +20,7 @@ do
     trimmed_reads=$((trimmed_lines / 4))
 
 #(4) Count Aligned Reads
+    module load SAMtools/1.23.1-GCC-13.3.0
     aligned_reads=$(samtools view -c -F 0x4 results/bam/${EACH}.sorted.bam) #view each BAM file -> count the rows + ignore rows flagged with 4 (-F 0x4), which means unmapped
 
 #(5) Count Variant Sites
